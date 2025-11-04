@@ -38,3 +38,6 @@ out/
 
 # 환경 변수 파일
 .env
+
+# node.js 관련 파일
+node_modules
