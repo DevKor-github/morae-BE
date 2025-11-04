@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: morae
+
+  profiles:
+    active: local
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
