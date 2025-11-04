@@ -10,3 +10,9 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+
+springdoc:
+  api-docs:
+    enabled: false   # 공통: 기본 꺼두기
+  swagger-ui:
+    path: /swagger-ui.html
