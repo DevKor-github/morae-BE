@@ -22,3 +22,8 @@ springdoc:
     enabled: false   # 공통: 기본 꺼두기
   swagger-ui:
     path: /swagger-ui.html
+
+jwt:
+  secret: ${JWT_SECRET}
+  access-token-expiration: 3600000  # 1시간 (밀리초)
+  refresh-token-expiration: 1209600000  # 14일 (밀리초)
