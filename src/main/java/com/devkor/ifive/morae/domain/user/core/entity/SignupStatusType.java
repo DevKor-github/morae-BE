@@ -1,4 +1,4 @@
-package com.devkor.ifive.domain.user.core.entity;
+package com.devkor.ifive.morae.domain.user.core.entity;
 
 public enum SignupStatusType {
     PROFILE_INCOMPLETE,  // 프로필 정보 미입력

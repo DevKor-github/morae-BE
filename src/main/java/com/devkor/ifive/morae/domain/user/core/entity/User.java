@@ -1,4 +1,4 @@
-package com.devkor.ifive.domain.user.core.entity;
+package com.devkor.ifive.morae.domain.user.core.entity;
 
 import com.devkor.ifive.morae.global.shared.SoftDeletableAuditable;
 import jakarta.persistence.*;
