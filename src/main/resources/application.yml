@@ -11,6 +11,12 @@ spring:
         format_sql: true
     show-sql: true
 
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 0
+
 springdoc:
   api-docs:
     enabled: false   # 공통: 기본 꺼두기
