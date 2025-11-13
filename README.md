@@ -1,7 +1,7 @@
 # ⏳ Morae BE
 
 ###  🔗️ Note
-> 이 문서는 Saerok 프로젝트의 README를 참고하여 구성하였으며, Morae의 컨벤션에 맞게 수정되었습니다.
+> 이 문서는 [Saerok 프로젝트](https://github.com/DevKor-github/saerok-BE)의 README를 참고하여 구성하였으며, Morae의 컨벤션에 맞게 수정되었습니다.
 
 ---
 
