@@ -4,7 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.*;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.devkor.ifive.morae.global.core.properties.JwtProperties;
+import com.devkor.ifive.morae.global.core.properties.TokenProperties;
 import com.devkor.ifive.morae.global.exception.JwtAuthException;
 import com.devkor.ifive.morae.global.security.principal.UserPrincipal;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +26,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    private final JwtProperties jwtProperties;
+    private final TokenProperties tokenProperties;
 
     // JWT(Access Token) 생성
     public String generateToken(Long userId, List<String> userRoles) {
-        Algorithm algorithm = Algorithm.HMAC256(jwtProperties.getSecret());
+        Algorithm algorithm = Algorithm.HMAC256(tokenProperties.getJwtSecret());
         Date now = new Date();
-        Date expiresAt = new Date(now.getTime() + jwtProperties.getAccessTokenExpiration());
+        Date expiresAt = new Date(now.getTime() + tokenProperties.getAccessTokenExpiration());
 
         return JWT.create()
                 .withSubject(userId.toString())
@@ -60,7 +60,7 @@ public class JwtTokenProvider {
     // JWT(Access Token) 검증 및 디코딩
     private DecodedJWT verifyAndDecode(String token) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(jwtProperties.getSecret());
+            Algorithm algorithm = Algorithm.HMAC256(tokenProperties.getJwtSecret());
             return JWT.require(algorithm)
                     .build()
                     .verify(token);
