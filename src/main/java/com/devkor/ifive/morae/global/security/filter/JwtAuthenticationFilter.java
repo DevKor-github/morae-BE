@@ -1,7 +1,7 @@
 package com.devkor.ifive.morae.global.security.filter;
 
 import com.devkor.ifive.morae.global.security.handler.JwtAuthenticationEntryPoint;
-import com.devkor.ifive.morae.global.security.token.JwtTokenProvider;
+import com.devkor.ifive.morae.global.security.token.AccessTokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +26,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final AccessTokenProvider accessTokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Override
@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (token != null) {
             try {
-                Authentication authentication = jwtTokenProvider.getAuthentication(token);
+                Authentication authentication = accessTokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 log.debug("JWT 인증 성공 - URI: {}", request.getRequestURI());
             } catch (Exception e) {

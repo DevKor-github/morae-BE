@@ -19,16 +19,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * JWT 기반 Access Token 생성 및 검증
+ * Access Token 생성 및 검증
+ * - JWT 방식 사용
  * - HMAC256 알고리즘(대칭키 기반)
  */
 @Component
 @RequiredArgsConstructor
-public class JwtTokenProvider {
+public class AccessTokenProvider {
 
     private final TokenProperties tokenProperties;
 
-    // JWT(Access Token) 생성
+    // Access Token(JWT) 생성
     public String generateToken(Long userId, List<String> userRoles) {
         Algorithm algorithm = Algorithm.HMAC256(tokenProperties.getJwtSecret());
         Date now = new Date();
@@ -42,7 +43,7 @@ public class JwtTokenProvider {
                 .sign(algorithm);
     }
 
-    // JWT(Access Token)에서 Authentication 객체 생성
+    // Access Token(JWT)에서 Authentication 객체 생성
     public Authentication getAuthentication(String token) {
         DecodedJWT decodedJWT = verifyAndDecode(token);
 
@@ -57,7 +58,7 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(userPrincipal, null, authorities);
     }
 
-    // JWT(Access Token) 검증 및 디코딩
+    // Access Token(JWT) 검증 및 디코딩
     private DecodedJWT verifyAndDecode(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(tokenProperties.getJwtSecret());
@@ -75,7 +76,7 @@ public class JwtTokenProvider {
         }
     }
 
-    // JWT(Access Token)에서 userId 추출
+    // Access Token(JWT)에서 userId 추출
     private Long extractUserId(DecodedJWT decodedJWT) {
         String subject = decodedJWT.getSubject();
         try {
@@ -85,7 +86,7 @@ public class JwtTokenProvider {
         }
     }
 
-    // JWT(Access Token)에서 roles claim 추출
+    // Access Token(JWT)에서 roles 추출
     private List<String> extractRoles(DecodedJWT decodedJWT) {
         List<String> roles = decodedJWT.getClaim("roles").asList(String.class);
         if (roles == null) {

@@ -16,21 +16,21 @@ import java.util.Base64;
  */
 @Component
 @RequiredArgsConstructor
-public class OpaqueTokenProvider {
+public class RefreshTokenProvider {
 
     private static final int TOKEN_LENGTH = 32; // 256비트
 
     private final SecureRandomBytesGenerator secureRandomBytesGenerator;
 
-    // Opaque Token(Refresh Token) 쌍(raw/hashed) 생성
-    public OpaqueTokenPair generateOpaqueTokenPair() {
-        String raw = generateRawOpaqueToken();
+    // Refresh Token(Opaque Token) 쌍(raw/hashed) 생성
+    public RefreshTokenPair generateRefreshTokenPair() {
+        String raw = generateRawRefreshToken();
         String hashed = hash(raw);
-        return new OpaqueTokenPair(raw, hashed);
+        return new RefreshTokenPair(raw, hashed);
     }
 
     // raw 토큰 생성 (URL-safe Base64)
-    private String generateRawOpaqueToken() {
+    private String generateRawRefreshToken() {
         byte[] randomBytes = secureRandomBytesGenerator.generate(TOKEN_LENGTH);
         return Base64.getUrlEncoder().withoutPadding().encodeToString(randomBytes);
     }
@@ -46,6 +46,6 @@ public class OpaqueTokenProvider {
         }
     }
 
-    // Opaque Token(Refresh Token) 쌍 - raw: 클라이언트 전달, hashed: DB 저장
-    public record OpaqueTokenPair(String raw, String hashed) {}
+    // Refresh Token(Opaque Token) 쌍 - raw: 클라이언트 전달, hashed: DB 저장
+    public record RefreshTokenPair(String raw, String hashed) {}
 }
